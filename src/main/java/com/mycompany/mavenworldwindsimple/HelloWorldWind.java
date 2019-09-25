@@ -10,6 +10,11 @@ import gov.nasa.worldwind.awt.WorldWindowGLCanvas;
 
 import gov.nasa.worldwind.*;
 
+import com.mycompany.mavenworldwindsimple.solids.Cube;
+import gov.nasa.worldwind.geom.Angle;
+import gov.nasa.worldwind.geom.Position;
+import gov.nasa.worldwind.render.DrawContext;
+
 /**
  * This is the most basic WorldWind program.
  *
@@ -23,15 +28,21 @@ public class HelloWorldWind
 
     private static class AppFrame extends javax.swing.JFrame
     {
+        WorldWindowGLCanvas wwd;
+        
         public AppFrame()
         {
-            WorldWindowGLCanvas wwd = new WorldWindowGLCanvas();
-            wwd.setPreferredSize(new java.awt.Dimension(1000, 800));
+            this.wwd = new WorldWindowGLCanvas();
+            this.wwd.setPreferredSize(new java.awt.Dimension(1000, 800));
             this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
             this.getContentPane().add(wwd, java.awt.BorderLayout.CENTER);
             this.pack();
 
-            wwd.setModel(new BasicModel());
+            this.wwd.setModel(new BasicModel());                     
+        }
+        
+        public DrawContext getWorldWindDrawContext() {
+            return wwd.getSceneController().getDrawContext();
         }
     }
 
@@ -48,7 +59,19 @@ public class HelloWorldWind
             {
                 // Create an AppFrame and immediately make it visible. As per Swing convention, this
                 // is done within an invokeLater call so that it executes on an AWT thread.
-                new AppFrame().setVisible(true);
+                AppFrame frame = new AppFrame();
+                
+                frame.setVisible(true);
+                
+                Position pos = Position.fromDegrees(35, -110, 50000);
+
+                Cube cube = new Cube(pos, 10000f);
+
+                DrawContext dc = frame.getWorldWindDrawContext();
+
+                cube.render(dc);
+
+                System.out.print("END OF PROGRAM");
             }
         });
     }
