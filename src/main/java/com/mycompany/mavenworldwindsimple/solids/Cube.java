@@ -16,6 +16,9 @@ import javax.media.opengl.GL2;
  *
  * @author omnis
  */
+/*cube example code: https://github.com/gaeaplus/gaeaplus/blob/master/src/gov/nasa/worldwindx/examples/tutorial/Cube.java
+
+*/
 public class Cube implements Renderable{
     
     protected Position position;
