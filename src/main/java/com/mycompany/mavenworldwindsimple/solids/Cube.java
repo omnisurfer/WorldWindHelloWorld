@@ -14,6 +14,7 @@ import java.awt.Color;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
+import com.mycompany.mavenworldwindsimple.solids.OrderedCube;
 /**
  *
  * @author omnis
@@ -23,6 +24,8 @@ import javax.media.opengl.GL2;
  Note the code in this hello world is not a direct copy of the above code so. I was following the tutorial here: 
  https://worldwind.arc.nasa.gov/java/tutorials/build-a-custom-renderable/ which does not present the full source so I ended up guessing 
  where things would be put until I found the full reference source.
+
+ Picking info: https://forum.worldwindcentral.com/forum/world-wind-java-forums/development-help/10391-solved-picking-selecting-intesecting-or-whatever-it-is-called
 
 */
 public class Cube implements Renderable{
@@ -37,13 +40,14 @@ public class Cube implements Renderable{
         this.size = sizeInMeters;
     }
     
+    @Override
     public void render(DrawContext dc) {
+                
+        //get the gl interface that is held within the worldwind drawContext
+        GL2 gl = dc.getGL().getGL2();            
             
-            //get the gl interface that is held within the worldwind drawContext
-            GL2 gl = dc.getGL().getGL2();            
-            
-            //set up drawing state
-            this.beginDrawing(dc);
+        //set up drawing state
+        this.beginDrawing(dc);
 
         try {                                    
 
@@ -58,11 +62,11 @@ public class Cube implements Renderable{
             Matrix matrix = dc.getGlobe().computeSurfaceOrientationAtPosition(this.position);
             matrix = dc.getView().getModelviewMatrix().multiply(matrix);
 
-            /* look into matrix stack: https://www.gamedev.net/forums/topic/501591-glscaled/ */
+            //look into matrix stack: https://www.gamedev.net/forums/topic/501591-glscaled/
             double[] matrixArray = new double[16];
             matrix.toArray(matrixArray, 0, false);
             gl.glLoadMatrixd(matrixArray, 0);
-
+            
             //draw the cube
             gl.glScaled(this.size, this.size, this.size);            
             this.drawUnitCube(dc);
@@ -70,9 +74,7 @@ public class Cube implements Renderable{
         }
         finally {
             this.endDrawing(dc);
-        }
-        
-        
+        }                        
     }
     
     protected void beginDrawing(DrawContext dc) {

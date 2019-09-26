@@ -78,7 +78,7 @@
             <manifest>
               <addClasspath>true</addClasspath>              
               <classpathPrefix>lib-native/</classpathPrefix>
-              <mainClass>com.mycompany.mavenworldwindsimple.HelloWorldWind</mainClass>
+              <mainClass>com.mycompany.mavenworldwindsimple.HelloWorldWindAppTemplate</mainClass>
             </manifest>            
           </archive>
           <outputDirectory>./</outputDirectory>

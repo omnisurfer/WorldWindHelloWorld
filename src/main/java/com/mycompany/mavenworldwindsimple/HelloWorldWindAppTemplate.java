@@ -45,9 +45,11 @@ public class HelloWorldWindAppTemplate extends ApplicationTemplate {
     
     public static void main(String[] args) {
         
-        final AppFrame frame = start("Hello WorldWind App Template Demo", HelloWorldWindAppFrame.class);
+        final AppFrame frame = start("Hello WorldWind App Template Demo", HelloWorldWindAppFrame.class);                
         
-        ((HelloWorldWindAppTemplateWindow)((HelloWorldWindAppFrame) frame).getWwd()).addCube();
+        Position pos = Position.fromDegrees(32.762999, -117.089078, 5000f);
+        
+        ((HelloWorldWindAppTemplateWindow)((HelloWorldWindAppFrame) frame).getWwd()).addCube(pos);
         
     }
 }

@@ -19,8 +19,16 @@ import java.awt.Dimension;
 import java.util.concurrent.TimeUnit;
 
 /**
- * This is the most basic WorldWind program.
- *
+ * This is the most basic WorldWind program. 
+ * * README ** README ** README ** README ** README ** README ** README ** README *
+ * * README ** README ** README ** README ** README ** README ** README ** README *
+ * * README ** README ** README ** README ** README ** README ** README ** README *
+ * This is not the default project that the POM is set to build. 
+ * That is now HelloWorldWindAppTemplate which
+ * better suits the cube example that I was following when I started. This
+ * is preserved for historical purposes but is probably not a good example to
+ * follow.
+ * 
  * @version $Id: HelloWorldWind.java 1971 2014-04-29 21:31:28Z dcollins $
  */
 public class HelloWorldWind

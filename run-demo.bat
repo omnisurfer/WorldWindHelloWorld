@@ -4,7 +4,7 @@ REM National Aeronautics and Space Administration.
 REM All Rights Reserved.
 
 REM Default to the ApplicationTemplate example if a class name is not provided
-IF "%1"=="" (SET WWDEMO=com.mycompany.mavenworldwindsimple.HelloWorldWind) ELSE (SET WWDEMO=%*)
+IF "%1"=="" (SET WWDEMO=com.mycompany.mavenworldwindsimple.HelloWorldWindAppTemplate) ELSE (SET WWDEMO=%*)
 
 REM Run a WorldWind Demo
 @echo Running %WWDEMO%

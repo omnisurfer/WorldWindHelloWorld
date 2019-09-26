@@ -20,22 +20,20 @@ import gov.nasa.worldwind.layers.RenderableLayer;
  */
 public class HelloWorldWindAppTemplateWindow extends WorldWindowGLCanvas {
     
-    public void addCube() {
+    public void addCube(Position position) {
         
         /*
             The code below deviates form the glider example (at least from what 
             understand so far) in that the layer is an abstract layer specific to
-            the task (i.e. a Glider object) and that RenderableLayer is not used 
+            the task (i.e. a layer to manage Glider objects) and that RenderableLayer is not used 
             as a generic way to tack on stuff to WorldWind. I think the goal
-            was to maintain a layer "persitently". That is this the cube layer
-            instead of here is a new layer that has a cube which is what is 
+            was to maintain a layer "persitently". That is this *the* cube layer
+            instead of "here is a new layer that has a cube in it" which is what is 
             happening below.
         */
-        RenderableLayer layer = new RenderableLayer();
+        RenderableLayer layer = new RenderableLayer();       
 
-        Position pos = Position.fromDegrees(32.762999, -117.089078, 5000f);
-
-        Cube cube = new Cube(pos, 10000f);
+        Cube cube = new Cube(position, 10000f);
 
         layer.addRenderable(cube);
         
