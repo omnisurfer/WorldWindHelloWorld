@@ -5,18 +5,17 @@
  */
 package com.mycompany.mavenworldwindsimple;
 
+import com.mycompany.mavenworldwindsimple.solids.Cube;
+
 import gov.nasa.worldwind.BasicModel;
 import gov.nasa.worldwind.awt.WorldWindowGLCanvas;
-
 import gov.nasa.worldwind.*;
-
-import com.mycompany.mavenworldwindsimple.solids.Cube;
 import gov.nasa.worldwind.avlist.AVKey;
-import gov.nasa.worldwind.geom.Angle;
 import gov.nasa.worldwind.geom.Position;
 import gov.nasa.worldwind.layers.RenderableLayer;
-import gov.nasa.worldwind.render.DrawContext;
-import gov.nasa.worldwind.render.DrawContextImpl;
+import gov.nasa.worldwindx.examples.ApplicationTemplate;
+
+import java.awt.Dimension;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -57,11 +56,11 @@ public class HelloWorldWind
             this.model.getLayers().add(layer);
             
         }
-        
+                        
         public Model getWorldWindModel() {
             return this.model;
         }        
-    }
+    }    
 
     public static void main(String[] args)
     {
@@ -69,7 +68,7 @@ public class HelloWorldWind
         {
             System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Hello WorldWind");
         }
-
+                
         java.awt.EventQueue.invokeLater(new Runnable()
         {
             public void run()
@@ -77,9 +76,9 @@ public class HelloWorldWind
                 // Create an AppFrame and immediately make it visible. As per Swing convention, this
                 // is done within an invokeLater call so that it executes on an AWT thread.
                 AppFrame frame = new AppFrame();
-                
+
                 frame.setVisible(true);
-                
+
                 /* add after display test
                  note there is a race condition here because I don't know when the context is valid
                 so I am just delaying for a quick and dirty test.
@@ -92,9 +91,9 @@ public class HelloWorldWind
                     //do nothing
                 }
                 System.out.print("1\n");
-          
+
                 RenderableLayer layer = new RenderableLayer();
-            
+
                 Position pos = Position.fromDegrees(32.762999, -117.089078, 5000f);
 
                 Cube cube = new Cube(pos, 10000f);
@@ -103,9 +102,10 @@ public class HelloWorldWind
 
                 Model model = frame.getWorldWindModel();
                 model.getLayers().add(layer);
-                
+
                 System.out.print("\nEND OF PROGRAM\n");
             }
-        });
+        });        
+        
     }
 }

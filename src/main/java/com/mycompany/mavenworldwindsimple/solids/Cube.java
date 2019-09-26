@@ -7,8 +7,10 @@ package com.mycompany.mavenworldwindsimple.solids;
 
 import gov.nasa.worldwind.geom.Matrix;
 import gov.nasa.worldwind.geom.Position;
+import gov.nasa.worldwind.pick.PickSupport;
 import gov.nasa.worldwind.render.DrawContext;
 import gov.nasa.worldwind.render.Renderable;
+import java.awt.Color;
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 
@@ -16,7 +18,11 @@ import javax.media.opengl.GL2;
  *
  * @author omnis
  */
-/*cube example code: https://github.com/gaeaplus/gaeaplus/blob/master/src/gov/nasa/worldwindx/examples/tutorial/Cube.java
+/*
+ cube reference example code: https://github.com/gaeaplus/gaeaplus/blob/master/src/gov/nasa/worldwindx/examples/tutorial/Cube.java
+ Note the code in this hello world is not a direct copy of the above code so. I was following the tutorial here: 
+ https://worldwind.arc.nasa.gov/java/tutorials/build-a-custom-renderable/ which does not present the full source so I ended up guessing 
+ where things would be put until I found the full reference source.
 
 */
 public class Cube implements Renderable{
@@ -24,30 +30,41 @@ public class Cube implements Renderable{
     protected Position position;
     protected double size;
     
+    protected PickSupport pickSupport = new PickSupport();
+    
     public Cube(Position position, double sizeInMeters) {
         this.position = position;
         this.size = sizeInMeters;
     }
     
     public void render(DrawContext dc) {
+            
+            //get the gl interface that is held within the worldwind drawContext
+            GL2 gl = dc.getGL().getGL2();            
+            
             //set up drawing state
             this.beginDrawing(dc);
 
-            try {
-            //transform cube to globe basis vectors
-            GL2 gl = dc.getGL().getGL2();
+        try {                                    
 
+            if(dc.isPickingMode()) {
+                Color pickColor = dc.getUniquePickColor();
+                this.pickSupport.addPickableObject(pickColor.getRGB(), this, this.position);
+                gl.glColor3ub((byte)pickColor.getRed(), (byte)pickColor.getGreen(), (byte)pickColor.getBlue());
+            }
+            //transform cube to globe basis vectors
             gl.glMatrixMode(GL2.GL_MODELVIEW);
 
             Matrix matrix = dc.getGlobe().computeSurfaceOrientationAtPosition(this.position);
             matrix = dc.getView().getModelviewMatrix().multiply(matrix);
 
+            /* look into matrix stack: https://www.gamedev.net/forums/topic/501591-glscaled/ */
             double[] matrixArray = new double[16];
             matrix.toArray(matrixArray, 0, false);
             gl.glLoadMatrixd(matrixArray, 0);
 
             //draw the cube
-            gl.glScaled(this.size, this.size, this.size);
+            gl.glScaled(this.size, this.size, this.size);            
             this.drawUnitCube(dc);
         
         }
